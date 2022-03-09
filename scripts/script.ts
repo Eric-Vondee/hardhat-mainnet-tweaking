@@ -19,20 +19,20 @@ async function script() {
         params: [ownerAddress]
     })
 
-    //sign the address to make transfer 
+    //granting owner address the ability to sign transactions 
      let accountSigner: Signer = await ethers.getSigner(ownerAddress);
      await fetchToken.connect(accountSigner).transfer(ownerAddress, "1000000000000000000000000000000000000000");
 
-    //encode the address and uint256 to access the mapping in storage
+    //encoding arguments address and uint256 to access the mapping in storage
     const mappingData = new ethers.utils.AbiCoder().encode(["address", "uint256"], [ownerAddress, 0])
     const position = ethers.utils.solidityKeccak256(["bytes"], [mappingData]);
 
-    //conerting from bytes to hex
+    //conerting from bytes to decimals
     const number:BigNumberish = BigNumber.from(position);
 
     //to get position 
-    const balances = await ethers.provider.getStorageAt(fetchToken.address, number);
-    console.log(`balance: ${balances}`)
+    const data = await ethers.provider.getStorageAt(fetchToken.address, number);
+    console.log(`balance: ${data}`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
