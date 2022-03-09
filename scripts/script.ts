@@ -27,7 +27,7 @@ async function script() {
     const mappingData = new ethers.utils.AbiCoder().encode(["address", "uint256"], [ownerAddress, 0])
     const position = ethers.utils.solidityKeccak256(["bytes"], [mappingData]);
 
-    //conerting from bytes to decimals
+    //conerting from bytes to decimals..
     const number:BigNumberish = BigNumber.from(position);
 
     //to get position 
